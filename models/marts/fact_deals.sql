@@ -13,20 +13,25 @@ deal_companies as (
     select 
         deal_id,
         case 
-            when companies is not null and companies != 'NULL' and companies != '' 
-            then replace(replace(replace(companies, '[', ''), ']', ''), '"', '')
+            when companies is not null 
+                and companies::text != 'null'
+                and jsonb_array_length(companies) > 0
+            then trim(replace(replace(companies->>0, '[', ''), ']', ''), '"')
             else null 
         end as company_id_str
     from deals
+    where companies is not null
 ),
 
--- Convert company_id string to actual company_id (assuming single company per deal for now)
+-- Convert company_id string to actual company_id (keeping as varchar for join)
 deal_company_parsed as (
     select 
         deal_id,
         case 
-            when company_id_str is not null and company_id_str ~ '^[0-9]+$'
-            then company_id_str::bigint
+            when company_id_str is not null 
+                and company_id_str ~ '^[0-9]+$'
+                and length(company_id_str) > 0
+            then company_id_str
             else null
         end as company_id
     from deal_companies
