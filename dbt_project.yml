@@ -34,3 +34,6 @@ models:
     # Staging models are typically views for fast development iteration
     staging:
       +materialized: view
+    # Marts are tables for performance in analytical queries
+    marts:
+      +materialized: table

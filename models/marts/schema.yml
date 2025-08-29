@@ -1,0 +1,145 @@
+version: 2
+
+models:
+  - name: fact_deals
+    description: >
+      Fact table for deals analysis combining deals with company information.
+      Provides metrics and dimensions for analyzing deal performance by company,
+      industry, and time periods.
+    
+    columns:
+      # Identifiers
+      - name: deal_id
+        description: Unique identifier for the deal
+        tests:
+          - unique
+          - not_null
+      
+      - name: hubspot_object_id
+        description: HubSpot internal object ID for the deal
+      
+      - name: company_id
+        description: Associated company identifier
+      
+      # Company Dimensions
+      - name: company_name
+        description: Name of the associated company
+      
+      - name: industry
+        description: Industry of the associated company
+      
+      - name: domain
+        description: Domain of the associated company
+      
+      - name: company_city
+        description: City where the company is located
+      
+      - name: company_state
+        description: State/province where the company is located
+      
+      - name: company_country
+        description: Country where the company is located
+      
+      # Deal Dimensions
+      - name: deal_name
+        description: Name/title of the deal
+        tests:
+          - not_null
+      
+      - name: deal_stage
+        description: Current stage of the deal in the sales pipeline
+      
+      - name: pipeline
+        description: Sales pipeline the deal belongs to
+      
+      - name: deal_type
+        description: Type classification of the deal
+      
+      - name: is_closed
+        description: Boolean indicating if the deal is closed (won or lost)
+      
+      - name: is_closed_won
+        description: Boolean indicating if the deal was closed and won
+      
+      - name: is_closed_lost
+        description: Boolean indicating if the deal was closed and lost
+      
+      # Date Dimensions
+      - name: deal_created_date
+        description: Date when the deal was created
+        tests:
+          - not_null
+      
+      - name: deal_close_date
+        description: Expected or actual close date of the deal
+      
+      - name: deal_closed_won_date
+        description: Actual date when the deal was closed and won
+      
+      - name: deal_created_year
+        description: Year when the deal was created
+      
+      - name: deal_created_quarter
+        description: Quarter when the deal was created
+      
+      - name: deal_created_month
+        description: Month when the deal was created
+      
+      - name: deal_close_year
+        description: Year when the deal is expected to close or closed
+      
+      - name: deal_close_quarter
+        description: Quarter when the deal is expected to close or closed
+      
+      - name: deal_close_month
+        description: Month when the deal is expected to close or closed
+      
+      # Financial Metrics
+      - name: amount
+        description: Deal amount in the deal's currency
+      
+      - name: closed_amount
+        description: Amount for closed deals
+      
+      - name: forecast_amount
+        description: Forecasted deal amount
+      
+      - name: projected_amount
+        description: Projected deal amount
+      
+      - name: annual_contract_value
+        description: Annual contract value (ACV) for the deal
+      
+      - name: monthly_recurring_revenue
+        description: Monthly recurring revenue (MRR) for the deal
+      
+      - name: total_contract_value
+        description: Total contract value (TCV) for the deal
+      
+      # Performance Metrics
+      - name: days_to_close
+        description: Number of days from creation to close
+      
+      - name: deal_stage_probability
+        description: Probability of closing based on deal stage (0-1)
+      
+      # Primary Metric
+      - name: number_of_deals
+        description: Count metric - always 1 per deal record for aggregation
+        tests:
+          - not_null
+          - accepted_values:
+              values: [1]
+      
+      # Additional Dimensions
+      - name: deal_owner_id
+        description: HubSpot user ID of the deal owner
+      
+      - name: company_owner_id
+        description: HubSpot user ID of the company owner
+      
+      - name: was_imported
+        description: Boolean indicating if the deal was imported from external system
+      
+      - name: object_source
+        description: Source system where the deal originated
