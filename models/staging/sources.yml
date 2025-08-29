@@ -1,0 +1,212 @@
+version: 2
+
+sources:
+  - name: lake
+    description: Raw data lake containing HubSpot data loaded via Airbyte
+    tables:
+      - name: contacts
+        description: HubSpot contacts data with all properties and metadata
+        columns:
+          - name: id
+            description: Unique identifier for the contact
+            tests:
+              - unique
+              - not_null
+          
+          - name: archived
+            description: Whether the contact is archived
+          
+          - name: companies
+            description: JSON array of associated company IDs
+          
+          - name: createdAt
+            description: Timestamp when the contact was created
+          
+          - name: updatedAt
+            description: Timestamp when the contact was last updated
+          
+          - name: properties_firstname
+            description: Contact's first name
+          
+          - name: properties_lastname
+            description: Contact's last name
+          
+          - name: properties_email
+            description: Primary email address
+            tests:
+              - not_null
+          
+          - name: properties_phone
+            description: Primary phone number
+          
+          - name: properties_company
+            description: Company name
+          
+          - name: properties_jobtitle
+            description: Job title
+          
+          - name: properties_lifecyclestage
+            description: Current lifecycle stage (lead, customer, etc.)
+          
+          - name: properties_hs_object_id
+            description: HubSpot internal object ID
+          
+          - name: _airbyte_raw_id
+            description: Airbyte unique record identifier
+          
+          - name: _airbyte_extracted_at
+            description: Timestamp when the record was extracted by Airbyte
+          
+          - name: _airbyte_generation_id
+            description: Airbyte generation ID for the sync
+          
+          - name: _airbyte_meta
+            description: Airbyte metadata including sync information
+      
+      - name: deals
+        description: HubSpot deals data with all properties and metadata
+        columns:
+          - name: id
+            description: Unique identifier for the deal
+            tests:
+              - unique
+              - not_null
+          
+          - name: archived
+            description: Whether the deal is archived
+          
+          - name: contacts
+            description: JSON array of associated contact IDs
+          
+          - name: companies
+            description: JSON array of associated company IDs
+          
+          - name: createdAt
+            description: Timestamp when the deal was created
+          
+          - name: updatedAt
+            description: Timestamp when the deal was last updated
+          
+          - name: line_items
+            description: JSON array of associated line items
+          
+          - name: properties_dealname
+            description: Name of the deal
+            tests:
+              - not_null
+          
+          - name: properties_amount
+            description: Deal amount in the deal's currency
+          
+          - name: properties_pipeline
+            description: Sales pipeline the deal belongs to
+          
+          - name: properties_dealstage
+            description: Current stage of the deal
+          
+          - name: properties_closedate
+            description: Expected or actual close date
+          
+          - name: properties_hs_is_closed
+            description: Whether the deal is closed (won or lost)
+          
+          - name: properties_hs_is_closed_won
+            description: Whether the deal was closed and won
+          
+          - name: properties_hs_object_id
+            description: HubSpot internal object ID
+          
+          - name: properties_hubspot_owner_id
+            description: ID of the deal owner in HubSpot
+          
+          - name: properties_createdate
+            description: Date the deal was created in HubSpot
+          
+          - name: _airbyte_raw_id
+            description: Airbyte unique record identifier
+          
+          - name: _airbyte_extracted_at
+            description: Timestamp when the record was extracted by Airbyte
+          
+          - name: _airbyte_generation_id
+            description: Airbyte generation ID for the sync
+          
+          - name: _airbyte_meta
+            description: Airbyte metadata including sync information
+      
+      - name: companies
+        description: HubSpot companies data with all properties and metadata
+        columns:
+          - name: id
+            description: Unique identifier for the company
+            tests:
+              - unique
+              - not_null
+          
+          - name: archived
+            description: Whether the company is archived
+          
+          - name: contacts
+            description: JSON array of associated contact IDs
+          
+          - name: createdAt
+            description: Timestamp when the company was created
+          
+          - name: updatedAt
+            description: Timestamp when the company was last updated
+          
+          - name: properties_name
+            description: Company name
+            tests:
+              - not_null
+          
+          - name: properties_domain
+            description: Company domain
+          
+          - name: properties_website
+            description: Company website URL
+          
+          - name: properties_industry
+            description: Company industry
+          
+          - name: properties_numberofemployees
+            description: Number of employees
+          
+          - name: properties_annualrevenue
+            description: Annual revenue amount
+          
+          - name: properties_lifecyclestage
+            description: Current lifecycle stage (lead, customer, etc.)
+          
+          - name: properties_hs_object_id
+            description: HubSpot internal object ID
+          
+          - name: properties_hubspot_owner_id
+            description: ID of the company owner in HubSpot
+          
+          - name: properties_createdate
+            description: Date the company was created in HubSpot
+          
+          - name: properties_phone
+            description: Company phone number
+          
+          - name: properties_city
+            description: Company city
+          
+          - name: properties_state
+            description: Company state/province
+          
+          - name: properties_country
+            description: Company country
+          
+          - name: _airbyte_raw_id
+            description: Airbyte unique record identifier
+          
+          - name: _airbyte_extracted_at
+            description: Timestamp when the record was extracted by Airbyte
+          
+          - name: _airbyte_generation_id
+            description: Airbyte generation ID for the sync
+          
+          - name: _airbyte_meta
+            description: Airbyte metadata including sync information

@@ -2,3 +2,5 @@
 target/
 dbt_packages/
 logs/
+example_lake_files/
+dbt_internal_packages/
